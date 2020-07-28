@@ -8,8 +8,9 @@
     <style type="text/css">
         .auto-style1 {
             margin-left: 480px;
-            width: 270px;
-            height: 19px;
+            width: 405px;
+            height: 30px;
+            font-size: x-large;
         }
         .auto-style5 {
             width: 346px;

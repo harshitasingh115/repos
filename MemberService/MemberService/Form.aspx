@@ -126,6 +126,7 @@
             text-align: justify;
             margin-left: 160px;
             height: 38px;
+            width: 1214px;
         }
         .auto-style36 {
             width: 1223px;
@@ -134,9 +135,9 @@
         }
         </style>
 </head>
-<body class="auto-style5" style="width: 1583px; margin-left: 181px; margin-right: 0px">
+<body class="auto-style5" style="width: 1477px; margin-left: 0px; margin-right: 0px">
     <form id="form1" runat="server">
-        <asp:Panel ID="Panel1" runat="server">
+        <asp:Panel ID="Panel1" runat="server" Width="1403px">
             <div class="auto-style35">
                 <div>
                     <pre class="auto-style16">Please provide the 6 digit confirmation code: <asp:TextBox ID="txtID" runat="server"></asp:TextBox><asp:Button ID="btnSearchCode" runat="server" Text="Enter" OnClick="btnSearchCode_Click" Font-Size="Small" />      </pre>
@@ -272,10 +273,10 @@
                     <pre class="auto-style25">Full Name*	<asp:TextBox ID="txtName" runat="server" Width="228px"></asp:TextBox></pre>
                     <pre class="auto-style25">Email*		<asp:TextBox ID="txtEmail" runat="server" Width="228px"></asp:TextBox></pre>
                     <pre class="auto-style25"> <asp:CheckBox ID="checkBox" runat="server" />By checking this box you confirm that the information given in this form is true, complete and accurate.</pre>
-                    <pre class="auto-style25"><asp:Label ID="Label1" runat="server" Text="Label" Visible="False"></asp:Label>	<asp:Label ID="Label2" runat="server" Text="Label" Visible="False"></asp:Label>  <asp:Label ID="lblColor" runat="server" Text="Label" Visible="False"></asp:Label></pre>
+                    <pre class="auto-style25"><asp:Label ID="Label1" runat="server" Text="Label" Visible="False"></asp:Label>	<asp:Label ID="Label2" runat="server" Text="Label" Visible="False"></asp:Label>  <asp:Label ID="lblReminder" Font-Bold="true" BackColor="Red" runat="server"></asp:Label></pre>
                     <pre class="auto-style14"><asp:Button ID="btnAccept" runat="server" CssClass="auto-style24" Text="Accept" Width="187px" OnClick="btnAccept_Click" /><span class="auto-style24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><asp:Button ID="btnReject" runat="server" Text="Reject" OnClick="btnReject_Click1" Width="169px" /></pre>
-                    <pre class="auto-style14"><asp:Label ID="lblReject" runat="server" Text="Label" Visible="False"></asp:Label><asp:TextBox ID="txtReject" runat="server" CssClass="auto-style24" Height="132px" Width="419px"></asp:TextBox></pre>
-                    <pre class="auto-style14"><asp:Button ID="btnSend" runat="server" OnClick="btnSend_Click1" Text="Send" /></pre>
+                    <pre class="auto-style14"><asp:Label ID="lblReject" runat="server" Text="Label" Visible="False"></asp:Label><asp:TextBox ID="txtReject" runat="server" CssClass="auto-style24" Height="132px" Width="419px" Visible="false"></asp:TextBox></pre>
+                    <pre class="auto-style14"><asp:Button ID="btnSend" runat="server" Visible="false" OnClick="btnSend_Click1" Text="Send" /></pre>
                     <pre></pre>
                 </div>
             </dl>

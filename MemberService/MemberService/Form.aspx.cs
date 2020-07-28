@@ -29,8 +29,10 @@ namespace MemberSignature
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            Panel2.Visible = false;
+            if (!this.IsPostBack)
+            {
+                Panel2.Visible = false;
+            }
         }
         protected void btnSearchCode_Click(object sender, EventArgs e)
         {
@@ -83,7 +85,7 @@ namespace MemberSignature
             }
 
             Member = tbl_members_stationcodesUID;
-            IpAddress(tbl_members_stationcodesUID);
+
             Search(tbl_members_stationcodesUID);
             Contact(tbl_members_stationcodesUID);
             LSP(tbl_members_stationcodesUID);
@@ -97,6 +99,7 @@ namespace MemberSignature
             Member = tbl_members_stationcodesUID;
             IPHostEntry host = default(IPHostEntry);
             string Hostname = string.Empty;
+            //string idTBL_Members = "";
             Hostname = System.Environment.MachineName;
             host = Dns.GetHostEntry(Hostname);
             foreach (IPAddress IP in host.AddressList)
@@ -110,12 +113,13 @@ namespace MemberSignature
                 }
             }
             string ip1 = Label1.Text;
-            string host1 = Label2.Text;
-
+            //string host1 = Label2.Text;
             myConn.Conn();
             if(myConn.OpenConnection() == true)
             {
-                string insert = "INSERT INTO on1call.test_onlinenif (ipAddress,user) Values('" + ip1 + "', '" + host1 + "') WHERE tbl_members_stationcodesUID = '"+ Member + "'";
+                string update = "UPDATE on1call.test_onlinenif SET ipAddress = '" + ip1 + "', user ='" + host + "' WHERE code = '" + txtID.Text + "'";
+                MySqlCommand cmd = new MySqlCommand(update, myConn.connection);
+                cmd.ExecuteNonQuery();
             }
             myConn.CloseConnection();
         }
@@ -148,21 +152,21 @@ namespace MemberSignature
             return dt;
         }
 
-        private void LookUP()
-        {
-            Member = Home.MemberID;
-            myConn.Conn();
-            if (myConn.OpenConnection() == true)
-            {
-                string Query = "SELECT * FROM on1calldev.tbl_locators loc JOIN on1calldev.tbl_members_stationcodes stncode ON loc.idtbl_Locators = stncode.LocatorID WHERE stncode.tbl_members_stationcodesUID = '" + Member + "'";
-                mySqlDataAdapter = new MySqlDataAdapter(Query, myConn.connection);
-                DataTable dt = new DataTable();
-                mySqlDataAdapter.Fill(dt);
-                GridView2.DataSource = dt;
-                GridView2.DataBind();
-            }
-            myConn.CloseConnection();
-        }
+        //private void LookUP()
+        //{
+        //    Member = Home.MemberID;
+        //    myConn.Conn();
+        //    if (myConn.OpenConnection() == true)
+        //    {
+        //        string Query = "SELECT * FROM on1calldev.tbl_locators loc JOIN on1calldev.tbl_members_stationcodes stncode ON loc.idtbl_Locators = stncode.LocatorID WHERE stncode.tbl_members_stationcodesUID = '" + Member + "'";
+        //        mySqlDataAdapter = new MySqlDataAdapter(Query, myConn.connection);
+        //        DataTable dt = new DataTable();
+        //        mySqlDataAdapter.Fill(dt);
+        //        GridView2.DataSource = dt;
+        //        GridView2.DataBind();
+        //    }
+        //    myConn.CloseConnection();
+        //}
 
 
         private void Search(string tbl_members_stationcodesUID)
@@ -274,7 +278,6 @@ namespace MemberSignature
             {
                 txtLSP.Text = dbDt.Rows[0]["LocateCompany"].ToString();
             }
-
         }
 
         private void Mediums(string tbl_members_stationcodesUID)
@@ -315,45 +318,57 @@ namespace MemberSignature
         //	Update query for IP Address and user on form page at Accept and Send event
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            string ip1 = Label1.Text;
-            string host1 = Label2.Text;
-            ArrayList list_emails = new ArrayList();
-            int i = 0;
-            myConn.Conn();
-            MySqlCommand cmd_Email = new MySqlCommand("SELECT Email FROM on1calldev.tbl_members_stationcodes stncode JOIN on1call.tbl_ni_contact con ON stncode.idTBL_Members = con.idTBL_Members WHERE ((con.conType) in ('Primary', 'Alternate')) AND stncode.tbl_members_stationcodesUID = '" + Member + "'", myConn.connection);
-            myConn.OpenConnection();
-            MySqlDataReader read_Email = cmd_Email.ExecuteReader();
-            while(read_Email.Read())
+            if(txtEmail.Text != null || txtName.Text != null || checkBox.Checked != true)
             {
-                string email = read_Email.GetValue(i).ToString();
-                list_emails.Add(email);
-                i = i + 1 - 1;
-            }
-
-            foreach(string email_to in list_emails)
-            {
-                MailMessage mail = new MailMessage();
-                mail.To.Add(email_to);
-                mail.CC.Add("HSingh@ON1Call.com");
-                mail.From = new MailAddress("HSingh@ON1Call.com");
-                string Info = txtStationCode.Text;
-                mail.Subject = "Accepted " +  Info;
-                mail.IsBodyHtml = false;
-                string detail = "Dear Member," + Environment.NewLine +
-                    Environment.NewLine +
-                    "This email is to verify that the IP address:" + ip1+ " and User: "+host1+ " belongs to your department/company and has confirmated the information on NIF Form of: "+ Info+"" + Environment.NewLine +
-                    "If you are unaware of any changes performed by the above IP address or the user, please contact the Member Services from Ontario One Call." + Environment.NewLine +
-                     Environment.NewLine +
-                    "Sincerely," + Environment.NewLine +
-                    "Member Services.";
-                mail.Body = detail;
-                SmtpClient smtp = new SmtpClient(ConfigurationManager.AppSettings["Network"]);
-                smtp.Send(mail);
-                //string connect = "INSERT INTO on1call.tbl_sys_emailqueue(tbl_sys_emailqueuecol_FROM, tbl_sys_emailqueue_TO, tbl_sys_emailqueuecol_CC, tbl_sys_emailqueuecol_SUBJECT,tbl_sys_emailqueuecol_BODY) VALUES ('"+ mail.From+ "', '" + mail.To + "', '" + mail.CC + "', '" + mail.Subject + "', '" + detail + "')";
-                //MySqlCommand cm = new MySqlCommand(connect, myConn.connection);
-                //cm.ExecuteNonQuery();
+                lblReminder.Text = "Please provide your full name, email and select the checkbox to proceed further.";
+                string ip1 = Label1.Text;
+                string host1 = Label2.Text;
+                string tbl_members_stationcodesUID = Member;
+                ArrayList list_emails = new ArrayList();
+                int i = 0;
+                myConn.Conn();
+                MySqlCommand cmd_Email = new MySqlCommand("SELECT Email FROM on1calldev.tbl_members_stationcodes stncode JOIN on1call.tbl_ni_contact con ON stncode.idTBL_Members = con.idTBL_Members WHERE ((con.conType) in ('Primary', 'Alternate')) AND stncode.tbl_members_stationcodesUID = '" + Member + "'", myConn.connection);
+                myConn.OpenConnection();
+                MySqlDataReader read_Email = cmd_Email.ExecuteReader();
+                while(read_Email.Read())
+                {
+                    string email = read_Email.GetValue(i).ToString();
+                    list_emails.Add(email);
+                    i = i + 1 - 1;
+                }
+                read_Email.Close();
+                foreach(string email_to in list_emails)
+                {
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add(email_to);
+                    mail.CC.Add("HSingh@ON1Call.com");
+                    mail.From = new MailAddress("memberservices@ON1Call.com");
+                    string Info = txtStationCode.Text;
+                    mail.Subject = "Accepted " +  Info;
+                    mail.IsBodyHtml = false;
+                    string detail = "Dear Member," + Environment.NewLine +
+                        Environment.NewLine +
+                        "This email is to verify that the IP address:" + ip1+ " and User: "+host1+ " and Email: "+txtEmail.Text+" belongs to your department/company and has confirmated the information on NIF Form of: "+ Info+"" + Environment.NewLine +
+                        "If you are unaware of any changes performed by the above IP address or the user, please contact the Member Services from Ontario One Call." + Environment.NewLine +
+                         Environment.NewLine +
+                        "Sincerely," + Environment.NewLine +
+                        "Member Services.";
+                    mail.Body = detail;
+                    string idDetail = "0";
+                    //SmtpClient smtp = new SmtpClient(ConfigurationManager.AppSettings["Network"]);
+                    //smtp.Send(mail);
+                    string connect = "INSERT INTO on1call.tbl_sys_emailqueue(tbl_sys_emailqueue_STATUS,tbl_sys_emailqueuecol_FROM, tbl_sys_emailqueue_TO, tbl_sys_emailqueuecol_CC, tbl_sys_emailqueuecol_SUBJECT,tbl_sys_emailqueuecol_BODY) VALUES ('"+ idDetail + "','" + mail.From + "', '" + mail.To + "', '" + mail.CC + "', '" + mail.Subject + "', '" + detail + "')";
+                    MySqlCommand cm = new MySqlCommand(connect, myConn.connection);
+                    cm.ExecuteNonQuery();
             }
             myConn.CloseConnection();
+            IpAddress(tbl_members_stationcodesUID);
+
+            }
+            else
+            {
+                lblReminder.Text = "Thank you for providing the information.";
+            }
             Response.Write("<script>alert('Send to Ontario One Call');</script>");
         }
 
@@ -409,19 +424,18 @@ namespace MemberSignature
 
         protected void btnReject_Click1(object sender, EventArgs e)
         {
-            
+            txtReject.Visible = true;
+            btnSend.Visible = true;
         }
 
         protected void btnSend_Click1(object sender, EventArgs e)
         {
-            if(txtReject.Text.Length ==0 || txtName.Text.Length ==0 || txtEmail.Text.Length ==0)
+            string tbl_members_stationcodesUID = Member;
+
+            if (txtReject.Text.Length ==0 || txtName.Text.Length ==0 || txtEmail.Text.Length ==0)
             {
                 System.Web.UI.ScriptManager.RegisterStartupScript(this, this.GetType(), "alertMessage", "alert('Please type your User ID');", true);
                 Page.Response.Redirect(Page.Request.Url.ToString());
-            }
-            else
-            {
-                return ;
             }
             string ip1 = Label1.Text;
             string host1 = Label2.Text;
@@ -437,33 +451,35 @@ namespace MemberSignature
                 list_emails.Add(email);
                 i = i + 1 - 1;
             }
-
+            read_Email.Close();
             foreach (string email_to in list_emails)
             {
                 MailMessage mail = new MailMessage();
                 mail.To.Add(email_to);
                 mail.CC.Add("hsingh@ON1Call.com");
-                mail.From = new MailAddress("hsingh@ON1Call.com");
+                mail.From = new MailAddress("memberservices@ON1Call.com");
                 string Info = txtStationCode.Text;
                 mail.Subject = "Rejected " + Info;
                 mail.IsBodyHtml = false;
                 string detail = "Dear Member," + Environment.NewLine +
                      Environment.NewLine +
-                "This email is to verify that the IP address:" + ip1 + " and User: " + host1 + " belongs to your department/company and has requested to update the information on NIF Form of: " + Info + "" + Environment.NewLine +
+                "This email is to verify that the IP address:" + ip1 + " and User: " + host1 + " and Email: "+txtEmail.Text+" belongs to your department/company and has requested to update the information on NIF Form of: " + Info + "" + Environment.NewLine +
                 "Information provided by Member to be updated: " + txtReject.Text + "" 
                 + Environment.NewLine +
                 "If you are unaware of any changes performed by the above IP address or the user, please contact the Member Services from Ontario One Call." + Environment.NewLine +
                  Environment.NewLine +
                 "Sincerely," + Environment.NewLine +
                 "Member Services.";
+                string idDetail = "0";
                 mail.Body = detail;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Send(mail);
-                //string connect = "INSERT INTO on1call.tbl_sys_emailqueue(tbl_sys_emailqueuecol_FROM, tbl_sys_emailqueue_TO, tbl_sys_emailqueuecol_CC, tbl_sys_emailqueuecol_SUBJECT,tbl_sys_emailqueuecol_BODY) VALUES ('"+ mail.From+ "', '" + mail.To + "', '" + mail.CC + "', '" + mail.Subject + "', '" + detail + "')";
-                //MySqlCommand cm = new MySqlCommand(connect, myConn.connection);
-                //cm.ExecuteNonQuery();
+                //SmtpClient smtp = new SmtpClient();
+                //smtp.Send(mail);
+                string connect = "INSERT INTO on1call.tbl_sys_emailqueue(tbl_sys_emailqueue_STATUS,tbl_sys_emailqueuecol_FROM, tbl_sys_emailqueue_TO, tbl_sys_emailqueuecol_CC, tbl_sys_emailqueuecol_SUBJECT,tbl_sys_emailqueuecol_BODY) VALUES ('"+ idDetail + "','" + mail.From + "', '" + mail.To + "', '" + mail.CC + "', '" + mail.Subject + "', '" + detail + "')";
+                MySqlCommand cm = new MySqlCommand(connect, myConn.connection);
+                cm.ExecuteNonQuery();
             }
             myConn.CloseConnection();
+            IpAddress(tbl_members_stationcodesUID);
             Response.Write("<script>alert('Send');</script>");
         }
     }
