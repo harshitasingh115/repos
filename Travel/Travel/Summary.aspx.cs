@@ -75,6 +75,25 @@ namespace Travel
 
         public void hotelDetail()
         {
+            string fileRef;
+            myConn.Conn();
+            if (myConn.OpenConnection() == true)
+            {
+                using (MySqlCommand cmd = new MySqlCommand("SELECT SUBSTRING(hotel.date_completed, 9, 2) AS File_Number FROM tms.travel_summary sum JOIN tms.travel_summary_hotel hotel ON hotel.userName = sum.userName JOIN tms.travel_summary_car car ON car.userName = sum.userName JOIN tms.travel_summary_flight flight ON flight.userName = sum.userName JOIN tms.travel_summary_airport airport ON airport.userName = sum.userName WHERE hotel.date_completed != 'Not Entered' AND car.date_completed != 'Not Entered' AND flight.date_completed != 'Not Entered' AND airport.date_completed != 'Not Entered' GROUP by sum.userName, Recent_Date"))
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Connection = myConn.connection;
+                    //myConn.OpenConnection();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        if (sdr.Read())
+                        {
+                            fileRef = sdr["File_Number"].ToString() == null ? "N/A" : sdr["File_Number"].ToString();
+                        }
+                    }
+                }
+            }
+            myConn.CloseConnection();
             string timeStamp = DateTime.Now.ToString();
             if (txtLocation.Text != null || txtLocation1.Text != null || txtIn.Text != null || txtOut.Text != null || txtHotelPref.Text != null || ddBedSize.Text != null || txtHotelReward.Text != null ||txtHotelNotes.Text != null || timeStamp !=null)
             {

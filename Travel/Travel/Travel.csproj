@@ -112,7 +112,6 @@
     <Content Include="ModifySummary.aspx" />
     <Content Include="PasswordChange.aspx" />
     <Content Include="PdfExport.aspx" />
-    <Content Include="PivotTable.aspx" />
     <Content Include="Review.aspx" />
     <Content Include="SignUpForm.aspx" />
     <Content Include="Summary.aspx" />
@@ -166,13 +165,6 @@
     </Compile>
     <Compile Include="PdfExport.aspx.designer.cs">
       <DependentUpon>PdfExport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="PivotTable.aspx.cs">
-      <DependentUpon>PivotTable.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="PivotTable.aspx.designer.cs">
-      <DependentUpon>PivotTable.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Random.cs" />
