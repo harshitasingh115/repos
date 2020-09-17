@@ -10,7 +10,7 @@ namespace Travel
 {
     public partial class PasswordChange : System.Web.UI.Page
     {
-        PasswordEncpDecp encpDecp = new PasswordEncpDecp();
+        //PasswordEncpDecp encpDecp = new PasswordEncpDecp();
         public MySqlConnection connection;
         MysqlConn myConn = new MysqlConn();
 
@@ -48,7 +48,6 @@ namespace Travel
             {
                 lblReminder.Text = "Please enter the 6 digit code received through email.";
             }
-
         }
         
         protected void btnChangePassword_Click(object sender, EventArgs e)

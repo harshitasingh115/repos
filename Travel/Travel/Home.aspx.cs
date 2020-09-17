@@ -100,33 +100,17 @@ namespace Travel
             try
             {
                 smtp.Send(mail);
-
-                
             }
             catch (Exception)
             {
-
             }
-
             myConn.Conn();
             if (myConn.OpenConnection() == true)
             {
                 string insert = "INSERT INTO tms.passwordreset(email, code) Values('" + mail.To + "','" + lblCode.Text + "')";
             }
             myConn.CloseConnection();
-
-            //string url;
-            //url = "PasswordChange.aspx?code=" + lblCode.Text;
-
-            //string userNameURL;
-            //userNameURL = "PasswordChange.aspx?userEmail=" + PasswordRecovery1.UserName;
-
             Response.Redirect("PasswordChange.aspx?code=" + lblCode.Text + "&userEmail=" + PasswordRecovery1.UserName);
-            
-
-            //Response.Redirect(userNameURL);
-            //Response.Redirect("PasswordChange.aspx" + lblCode.Text);
-
         }
 
         protected void txtSignUp_Click(object sender, EventArgs e)

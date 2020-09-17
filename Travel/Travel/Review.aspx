@@ -51,8 +51,7 @@
         {
             var txtFirstNo5 = document.getElementById('txtCarSubtotal').value;
             var txtSecondNo5 = document.getElementById('txtCarHST').value;
-            var txtThirdNo5 = document.getElementById('txtCarGratuity').value;
-            var result = parseFloat(txtFirstNo5) + parseFloat(txtSecondNo5) + parseFloat(txtThirdNo5);
+            var result = parseFloat(txtFirstNo5) + parseFloat(txtSecondNo5);
             if (!isNaN(result))
             {
                 document.getElementById('txtCarGrandTotal').value = result;
@@ -78,26 +77,17 @@
     <style type="text/css">
         .auto-style1 {
             margin-left: 40px;
-        }
-        .auto-style2 {
             text-align: center;
-            margin-left: 80px;
-            font-weight: normal;
-            width: 1031px;
-        }
-        .auto-style5 {
-            width: 100%;
-            height: 100%;
         }
         .auto-style6 {
             text-align: center;
             margin-left: 55px;
         }
         .auto-style7 {
-            width: 1105px;
+            width: 1629px;
             text-align: center;
-            margin-left: 44px;
-            margin-right: 47px;
+            margin-left: 6px;
+            margin-right: 1px;
         }
         .auto-style8 {
             text-align: center;
@@ -111,31 +101,19 @@
             margin-left: 27px;
             margin-bottom: 0px;
         }
-        .auto-style11 {
-            margin-top: 0px;
-        }
-        .auto-style20 {
-            text-align: justify;
-        }
         .auto-style21 {
             text-align: center;
         }
-        .auto-style22 {
-            margin-bottom: 0px;
-        }
-        .auto-style23 {
-            background-color: #666666;
-            text-align: center;
+        .auto-style24 {
+            margin-right: 0px;
         }
         </style>
 </head>
-<body style="background-image:url('Image/On1Call.png'); background-repeat:no-repeat;width: 100%; height: 100%; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;">
+<body style="background-image:url('Image/On1Call.png'); background-repeat:no-repeat;width: 99%; height: 2308px; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;">
     <form id="form1" runat="server">
-        <div class="auto-style5">
-           <div class="auto-style1">
-            <h1 class="auto-style2">&nbsp;</h1>
-               <h1 class="auto-style2"><strong>Travel&nbsp; Summary</strong></h1>
-        </div>
+        <div>
+            <br />
+            <h1 class="auto-style1"><strong>Travel Summary Detail:</strong></h1>
             <p class="auto-style7">
                 <asp:Label ID="lblUser" runat="server" ForeColor="Red" Width="149px" Text="Label" Height="24px"></asp:Label>
         </p>
@@ -144,14 +122,14 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>            <strong>            <asp:Button ID="btnClick"  Font-Bold="true" runat="server" Text="&gt;" Height="33px" Visible="false" Width="42px" OnClick="btnClick_Click"/>
             </strong>&nbsp;&nbsp;&nbsp;<asp:Label ID="lblTimeRequested" runat="server" Visible="False"></asp:Label>
-            <div class="auto-style20">
+            <div class="auto-style21">
 
-            <asp:Panel ID="Panel1" runat="server" Height="51%" Width="100%">
+            <asp:Panel ID="Panel1" runat="server" Height="18%" Width="99%">
                 <asp:ImageButton ID="btnHotel" runat="server" CssClass="auto-style10" Height="76px" ImageUrl="~/Image/hotel.png" Width="76px" />
                     <br />
                 <strong>
                 <div class="auto-style21">
-                    <asp:Panel ID="Panel4" runat="server" BorderColor="Black" BackColor="Gray">
+                    <asp:Panel ID="Panel4" runat="server" BorderColor="Black" Width="100%" BackColor="Gray">
                         <h3>&nbsp;&nbsp;REQUESTOR INFORMATION:</h3>
                         <h3>One King/Two Queen:
                             <asp:TextBox ID="txtBedSize" runat="server"></asp:TextBox>
@@ -228,10 +206,11 @@
                  </div>
                  <br />
                 <br />
-            <asp:Panel ID="Panel2" runat="server" Height="48%" Width="100%" CssClass="auto-style11">
+            <div class="auto-style21">
+            <asp:Panel ID="Panel2" runat="server" Height="44%" Width="100%">
                 <asp:ImageButton ID="btnFlight" runat="server" CssClass="auto-style8" Height="76px" ImageUrl="~/Image/flight.png" Width="79px"/>
                          &nbsp;&nbsp;<strong><div class="auto-style21">
-                    <asp:Panel ID="Panel5" runat="server" BorderColor="Black" BackColor="Gray">
+                    <asp:Panel ID="Panel5" runat="server" BorderColor="Black" BackColor="Gray" Height="25%" Width="100%">
                         <h3>&nbsp; <strong>REQUESTOR INFORMATION:</strong>&nbsp;</h3>
                         <h3>One Way/Round Trip:
                             <asp:TextBox ID="txtTrip" runat="server" Height="18px" Width="79px"></asp:TextBox>
@@ -295,9 +274,11 @@
                 &nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblAirport" runat="server" Visible="False"></asp:Label>
                 <br />
-                <asp:Panel ID="Panel7" runat="server">
+                <br />
+                <br />
+                <asp:Panel ID="Panel7" runat="server" Height="25%" Width="99%">
                     <h2 class="auto-style21"><strong>Airport Transportation:</strong></h2>
-                    <asp:Panel ID="Panel8" runat="server" CssClass="auto-style23">
+                    <asp:Panel ID="Panel8" runat="server" Width="100%" BorderColor="Black" BackColor="Gray" >
                         <strong>
                         <h3 class="auto-style21">&nbsp;&nbsp; REQUESTOR INFORMATION:</h3>
                         <h3>One Way/Round Trip:
@@ -335,17 +316,24 @@
                 </asp:Panel>
                 <br />
                 &nbsp;&nbsp;
+                <br />
+                <br />
+                <br />
+                &nbsp;&nbsp;
                 <asp:Label ID="lblReminder" runat="server" Font-Bold="true" ForeColor="Red" Text="Label"></asp:Label>
+                <br />
                 <br />
                 &nbsp;&nbsp;
                 <asp:Label ID="lblAirportReminder" runat="server" Font-Bold="true" ForeColor="Red" Text="Label"></asp:Label>
             </asp:Panel>
+            </div>
             <br />
             <br />
-            <asp:Panel ID="Panel3" runat="server" Height="50%" Width="100%">
+            <div class="auto-style21">
+            <asp:Panel ID="Panel3" runat="server" Height="22%" Width="100%" CssClass="auto-style24">
                             <asp:ImageButton ID="ImageButton3" runat="server" CssClass="auto-style6" Height="64px" ImageUrl="~/Image/car.PNG" Width="79px"/>
                             <strong>
-                            <asp:Panel ID="Panel6" runat="server" BackColor="Gray" BorderColor="Black">
+                            <asp:Panel ID="Panel6" runat="server" Width="100%" BackColor="Gray" BorderColor="Black">
                                 <h3 class="auto-style21">&nbsp;&nbsp; <strong>REQUESTOR INFORMATION:</strong></h3>
                                 <h3>&nbsp;&nbsp;National/Enterprise:
                                     <asp:TextBox ID="txtCarNational0" runat="server" Height="16px" Width="94px"></asp:TextBox>
@@ -366,6 +354,8 @@
                                     <asp:TextBox ID="txtCarCheckOut" runat="server" Height="21px" Width="99px"></asp:TextBox>
                                     </strong></h3>
                             </asp:Panel>
+                            <div class="auto-style21">
+                            </div>
                             </strong>
                             <br />
                             &nbsp;&nbsp; Confirmation#:
@@ -389,7 +379,6 @@
                             &nbsp;&nbsp; Subtotal:
                             <asp:TextBox ID="txtCarSubtotal" runat="server" Height="16px" Width="56px" onkeyup="sum2()"></asp:TextBox>
                             &nbsp;&nbsp;HST:&nbsp;<asp:TextBox ID="txtCarHST" runat="server" Height="17px" Width="57px" onkeyup="sum2()" ></asp:TextBox>
-                            &nbsp;&nbsp;Gratuity:&nbsp;<asp:TextBox ID="txtCarGratuity" runat="server" CssClass="auto-style22" Height="16px" Width="62px" onkeyup="sum2()"></asp:TextBox>
                             &nbsp;&nbsp;Grand Total:&nbsp;<asp:TextBox ID="txtCarGrandTotal" runat="server" Height="16px" Width="67px"></asp:TextBox>
                             &nbsp;&nbsp;&nbsp;
                             <asp:Label ID="lblCar" runat="server" Visible="False" Font-Bold="true"></asp:Label>
@@ -398,16 +387,22 @@
                             &nbsp;&nbsp;
                             <asp:Label ID="lblCarReminder" ForeColor="Red" runat="server" Font-Bold="true" Text="Label"></asp:Label>
                             <asp:Label ID="lblUserEmail" runat="server"></asp:Label>
+                            &nbsp;
+                            <asp:Label ID="lblFileRef" runat="server"></asp:Label>
                             <br />
-
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Attachment:
+                            <br />
+                            Attachment:
                             <asp:TextBox ID="TextBox1" runat="server" Height="21px" Width="253px"></asp:TextBox>
-                    <asp:FileUpload id="FileUploadControl" runat="server" />
-
+                    &nbsp;
+                            <asp:FileUpload ID="FileUploadControl" runat="server" Height="26px" Width="257px" />
                             <br />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="btnSaved" runat="server" Height="31px" OnClick="btnSaved_Click" Text="Saved" Width="172px" />
+                            <br />
+                            <asp:Button ID="btnSaved" runat="server" Height="31px" OnClick="btnSaved_Click" Text="Saved" Width="172px" />
+
+                            </div>
 
             </asp:Panel>
+            </div>
         </div>
     </form>
 </body>

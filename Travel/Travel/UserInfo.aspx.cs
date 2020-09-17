@@ -16,6 +16,7 @@ namespace Travel
         public MySqlConnection connection;
         MysqlConn myConn = new MysqlConn();
         string userInfo;
+        string userFileReference;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -32,7 +33,8 @@ namespace Travel
             myConn.Conn();
             if(myConn.OpenConnection() == true)
             {
-                MySqlCommand cmd = new MySqlCommand("SELECT sum.userName, GREATEST(hotel.date_completed, car.date_completed,flight.date_completed, airport.date_completed) AS date_completed FROM tms.travel_summary sum JOIN tms.travel_summary_hotel hotel ON hotel.userName = sum.userName JOIN tms.travel_summary_car car ON car.userName = sum.userName JOIN tms.travel_summary_flight flight ON flight.userName = sum.userName JOIN tms.travel_summary_airport airport ON airport.userName = sum.userName WHERE hotel.date_completed = 'Not Entered' AND car.date_completed = 'Not Entered' AND flight.date_completed = 'Not Entered' AND airport.date_completed = 'Not Entered'", myConn.connection);
+                //MySqlCommand cmd = new MySqlCommand("SELECT sum.userName, GREATEST(hotel.date_completed, car.date_completed,flight.date_completed, airport.date_completed) AS date_completed FROM tms.travel_summary sum JOIN tms.travel_summary_hotel hotel ON hotel.userName = sum.userName JOIN tms.travel_summary_car car ON car.userName = sum.userName JOIN tms.travel_summary_flight flight ON flight.userName = sum.userName JOIN tms.travel_summary_airport airport ON airport.userName = sum.userName WHERE hotel.date_completed = 'Not Entered' AND car.date_completed = 'Not Entered' AND flight.date_completed = 'Not Entered' AND airport.date_completed = 'Not Entered'", myConn.connection);
+                MySqlCommand cmd = new MySqlCommand("SELECT userName, date_completed, file_refer FROM tms.travel_summary_airport WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' UNION SELECT userName, date_completed, file_refer  FROM tms.travel_summary_car  WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' UNION SELECT userName, date_completed, file_refer  from tms.travel_summary_flight WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' UNION SELECT userName, date_completed, file_refer FROM tms.travel_summary_hotel  WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' ORDER BY 3", myConn.connection);
                 MySqlDataAdapter adpt = new MySqlDataAdapter(cmd);
                 adpt.Fill(dataTable);
                 GridView2.DataSource = dataTable;
@@ -47,9 +49,14 @@ namespace Travel
             myConn.Conn();
             if (myConn.OpenConnection() == true)
             {
+                //MySqlCommand sqlCommand = new MySqlCommand("");
+                //MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(sqlCommand);
+                //mySqlDataAdapter.Fill();
+                //GrdModify.DataSource = ;
+                //GrdModify.DataBind();
                 if (ddTravelOption.SelectedValue == "Airport")
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT idtravel_summary_airport,userName, date_completed FROM tms.travel_summary_airport WHERE date_completed ='Not Entered'", myConn.connection);
+                    MySqlCommand cmd = new MySqlCommand("SELECT userName, date_completed, file_refer FROM tms.travel_summary_airport WHERE date_completed ='Not Entered' ORDER BY 3", myConn.connection);
                     MySqlDataAdapter adpt = new MySqlDataAdapter(cmd);
                     adpt.Fill(dt1);
                     GridView2.DataSource = dt1;
@@ -59,7 +66,7 @@ namespace Travel
                 }
                 else if (ddTravelOption.SelectedValue == "Car")
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT idtravel_summary_car,userName, date_completed FROM tms.travel_summary_car WHERE date_completed ='Not Entered'", myConn.connection);
+                    MySqlCommand cmd = new MySqlCommand("SELECT userName, date_completed, file_refer FROM tms.travel_summary_car WHERE date_completed ='Not Entered' ORDER BY 3", myConn.connection);
                     MySqlDataAdapter adpt = new MySqlDataAdapter(cmd);
                     adpt.Fill(dt1);
                     GridView2.DataSource = dt1;
@@ -68,7 +75,7 @@ namespace Travel
                 }
                 else if (ddTravelOption.SelectedValue == "Flight")
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT idtravel_summary_flight,userName, date_completed FROM tms.travel_summary_flight WHERE date_completed ='Not Entered'", myConn.connection);
+                    MySqlCommand cmd = new MySqlCommand("SELECT userName, date_completed, file_refer FROM tms.travel_summary_flight WHERE date_completed ='Not Entered' ORDER BY 3", myConn.connection);
                     MySqlDataAdapter adpt = new MySqlDataAdapter(cmd);
                     adpt.Fill(dt1);
                     GridView2.DataSource = dt1;
@@ -77,7 +84,7 @@ namespace Travel
                 }
                 else if (ddTravelOption.SelectedValue == "Hotel")
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT idtravel_summary_hotel,userName, date_completed FROM tms.travel_summary_hotel WHERE date_completed ='Not Entered'", myConn.connection);
+                    MySqlCommand cmd = new MySqlCommand("SELECT userName, date_completed, file_refer FROM tms.travel_summary_hotel WHERE date_completed ='Not Entered' ORDER BY 3", myConn.connection);
                     MySqlDataAdapter adpt = new MySqlDataAdapter(cmd);
                     adpt.Fill(dt1);
                     GridView2.DataSource = dt1;
@@ -86,7 +93,8 @@ namespace Travel
                 }
                 else
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT idtravel_summary_hotel,userName, date_completed FROM tms.travel_summary_hotel WHERE date_completed ='Not Entered'", myConn.connection);
+                    //MySqlCommand cmd = new MySqlCommand("SELECT idtravel_summary_hotel,userName, date_completed, file_refer FROM tms.travel_summary_hotel WHERE date_completed ='Not Entered'", myConn.connection);
+                    MySqlCommand cmd = new MySqlCommand("SELECT userName, date_completed, file_refer FROM tms.travel_summary_airport WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' UNION SELECT userName, date_completed, file_refer  FROM tms.travel_summary_car  WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' UNION SELECT userName, date_completed, file_refer  from tms.travel_summary_flight WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' UNION SELECT userName, date_completed, file_refer FROM tms.travel_summary_hotel  WHERE file_refer IS NOT NULL and date_completed = 'Not Entered' ORDER BY 3", myConn.connection);
                     MySqlDataAdapter adpt = new MySqlDataAdapter(cmd);
                     adpt.Fill(dt1);
                     GridView2.DataSource = dt1;
@@ -109,13 +117,32 @@ namespace Travel
                 }
                 TableCell cell = e.Row.Cells[0];
                 userInfo = cell.Text;
+                TableCell cellRef = e.Row.Cells[2];
+                userFileReference = cellRef.Text;
             }
         }
 
+        protected void OnRowDataBoundModify(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                TableCell statusCell = e.Row.Cells[1];
+                if (statusCell.Text == "")
+                {
+                    statusCell.Text = "Recently Entered";
+                }
+                TableCell cell = e.Row.Cells[0];
+                userInfo = cell.Text;
+                TableCell cellRef = e.Row.Cells[2];
+                userFileReference = cellRef.Text;
+            }
+        }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Response.Redirect("Review.aspx?userInfo=" + userInfo);
+            Response.Redirect("Review.aspx?userInfo={0}" + userInfo);
+            //Response.Redirect("Review.aspx?userFileReference = userFileReference");
+            //Response.Redirect("Review.aspx?userFileReference=" + userFileReference);
         }
 
         protected void ddTravelOption_SelectedIndexChanged(object sender, EventArgs e)
@@ -171,6 +198,7 @@ namespace Travel
             CreateDetailedTable(dt);
         }
 
+
         public void CreateDetailedTable(DataTable dataDt)
         {
             DataTable gridDt = new DataTable();
@@ -195,7 +223,7 @@ namespace Travel
             {
                 Dictionary<int, decimal> listDict = new Dictionary<int, decimal>();
 
-                if (dr["GrandTotal"] != "")
+                if (dr["GrandTotal"].GetType().GetProperties().Any())
                 {
                     listDict.Add(Convert.ToInt16(dr["Month"]), Convert.ToDecimal(dr["GrandTotal"]));
                 }
@@ -213,7 +241,7 @@ namespace Travel
                     {
                         var month1 = Convert.ToInt16(dr1.Field<string>("Month").ToString());
                         var gTotal = dr1["GrandTotal"];
-                        if (gTotal != "")
+                        if (gTotal.GetType().GetProperties().Any())
                         {
                             var grandTotal1 = Convert.ToDecimal(gTotal.ToString());
                             if (!listDict.ContainsKey(month1))
@@ -320,7 +348,6 @@ namespace Travel
                 var newDr = new object[] { dictData.Key, jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec, gTotal };
                 gridDt.Rows.Add(newDr);
             }
-            
             GridView3.DataSource = gridDt;
             GridView3.DataBind();
         }
@@ -379,6 +406,18 @@ namespace Travel
                 for (int i = 0; i < e.Row.Cells.Count; i++)
                 {
                     e.Row.Cells[i].Text = "$" + e.Row.Cells[i].Text;
+                    string userName = e.Row.Cells[0].Text;
+                    string amount = e.Row.Cells[2].Text;
+                    string amountRef = amount.TrimStart('$');
+                    string nameRef = userName.TrimStart('$');
+                    e.Row.Cells[0].Text = nameRef;
+                    //if (amount == "$&nbsp;")
+                    //{
+                    //    for (int i = 1; i < e.Row.Cells.Count; i++)
+                    //    {
+                    //        e.Row.Cells[2].Text = amountRef;
+                    //    }
+                    //}
                 }
             }
         }
@@ -386,6 +425,16 @@ namespace Travel
         protected void btnCompleted_Click(object sender, EventArgs e)
         {
             Response.Redirect("DetailSummary.aspx");
+        }
+
+        protected void btnModify_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ModifyList.aspx");
+        }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Summary.aspx");
         }
     }
 }

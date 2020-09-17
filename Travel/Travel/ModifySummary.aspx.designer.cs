@@ -31,15 +31,6 @@ namespace Travel {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// btnClick control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClick;
-        
-        /// <summary>
         /// lblTimeRequested control.
         /// </summary>
         /// <remarks>
@@ -56,6 +47,15 @@ namespace Travel {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUser;
+        
+        /// <summary>
+        /// lblFileRef control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFileRef;
         
         /// <summary>
         /// Panel1 control.
@@ -913,15 +913,6 @@ namespace Travel {
         protected global::System.Web.UI.WebControls.TextBox txtCarHST;
         
         /// <summary>
-        /// txtCarGratuity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCarGratuity;
-        
-        /// <summary>
         /// txtCarGrandTotal control.
         /// </summary>
         /// <remarks>
@@ -983,5 +974,23 @@ namespace Travel {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSaved;
+        
+        /// <summary>
+        /// btnBack0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBack0;
+        
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
     }
 }

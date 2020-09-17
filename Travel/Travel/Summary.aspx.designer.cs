@@ -67,6 +67,15 @@ namespace Travel {
         protected global::System.Web.UI.WebControls.ImageButton btnHotel;
         
         /// <summary>
+        /// lblAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlert;
+        
+        /// <summary>
         /// Panel4 control.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,24 @@ namespace Travel {
         protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
+        /// chckFlight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckFlight;
+        
+        /// <summary>
+        /// Panel8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel8;
+        
+        /// <summary>
         /// ddFlightWay control.
         /// </summary>
         /// <remarks>
@@ -191,6 +218,24 @@ namespace Travel {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        
+        /// <summary>
+        /// chckAirport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chckAirport;
+        
+        /// <summary>
+        /// Panel9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel9;
         
         /// <summary>
         /// lblLocation control.
@@ -247,13 +292,22 @@ namespace Travel {
         protected global::System.Web.UI.WebControls.TextBox txtAirportFlightNotes;
         
         /// <summary>
-        /// Panel3 control.
+        /// chckCar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel3;
+        protected global::System.Web.UI.WebControls.CheckBox chckCar;
+        
+        /// <summary>
+        /// Panel7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel7;
         
         /// <summary>
         /// ddCarNational control.
@@ -328,13 +382,22 @@ namespace Travel {
         protected global::System.Web.UI.WebControls.Label lblReminders;
         
         /// <summary>
-        /// Panel1 control.
+        /// chckHotel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.CheckBox chckHotel;
+        
+        /// <summary>
+        /// Panel6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel6;
         
         /// <summary>
         /// ddBedSize control.
@@ -380,15 +443,6 @@ namespace Travel {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHotelNotes;
-        
-        /// <summary>
-        /// lblAlert control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAlert;
         
         /// <summary>
         /// ScriptManager1 control.
